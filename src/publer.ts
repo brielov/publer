@@ -1,21 +1,12 @@
 export type Observer<T> = (payload: T) => void;
 
-export type Publisher<T, K extends keyof T> = (
-  channel: K,
-  ...args: T[K] extends undefined ? [] : [T[K]]
-) => void;
-
-export type Subscriber<T, K extends keyof T> = (
-  channel: K,
-  observer: Observer<T[K]>,
-) => () => void;
-
-export type PublerTuple<T, K extends keyof T> = [
-  Publisher<T, K>,
-  Subscriber<T, K>,
-];
-
-export const publer = <T>(): PublerTuple<T, keyof T> => {
+export const publer = <T extends { [key: string]: any }>(): [
+  <K extends keyof T>(
+    channel: K,
+    ...args: T[K] extends undefined ? [] : [T[K]]
+  ) => void,
+  <K extends keyof T>(channel: K, observer: Observer<T[K]>) => () => void,
+] => {
   const eventMap = new Map<keyof T, Set<Observer<any>>>();
   return [
     (channel, ...[payload]) =>

@@ -1,16 +1,13 @@
-import { Publisher, Subscriber, publer } from "./publer";
+import { publer } from "./publer";
 
 type EventMap = {
   foo: string;
   bar: number;
 };
 
-let pub: Publisher<EventMap, keyof EventMap>;
-let sub: Subscriber<EventMap, keyof EventMap>;
+let [pub, sub] = publer<EventMap>();
 
-beforeEach(() => {
-  [pub, sub] = publer<EventMap>();
-});
+beforeEach(() => ([pub, sub] = publer<EventMap>()));
 
 it("handles one observer", () => {
   const fn = jest.fn();
