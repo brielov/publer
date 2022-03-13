@@ -1,1 +1,1 @@
-export { publer } from "./publer";
+export * from "./publer";
