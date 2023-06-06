@@ -20,26 +20,28 @@ npm install publer
 ```typescript
 import { publer } from "publer";
 
-interface LoginPayload {
-  token: string;
-  remember?: boolean;
+type Peer = {
+  id: number;
+  username: string
 }
 
 interface Events {
-  login: LoginPayload;
-  logout: void; // no payload
+  login: [email: string; password: string];
+  logout: []; // no arguments
+  peerConnected: [peer: Peer]
+  peerDisconnected: [peer: Peer]
 }
 
 const [pub, sub] = publer<Events>();
 
 // returns a cleanup function to remove listener
-const unsub = sub("login", ({ token, remember }) => {
+const unsub = sub("login", (email, password) => {
   // payload is inferred
 });
 
-// fails without payload, must be provided
-pub("login", { token: "foobar" });
+// fails without arguments, must be provided
+pub("login", 'john@doe.com', 'johndoe123');
 
-// fails with payload
+// fails with arguments
 pub("logout");
 ```

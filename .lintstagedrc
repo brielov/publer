@@ -1,6 +1,3 @@
- {
-  "**/*.ts": [
-    "eslint --fix --max-warnings 0",
-    "jest --findRelatedTests"
-  ]
+{
+  "**/*.ts": ["eslint --fix --max-warnings 0", "vitest related --run"]
 }

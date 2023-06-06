@@ -4,11 +4,9 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext"],
     "module": "esnext",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
-    "skipLibCheck": true,
     "strict": true,
-    "target": "esnext",
-    "rootDir": "src"
-  },
-  "include": ["src"]
+    "target": "esnext"
+  }
 }

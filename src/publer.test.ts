@@ -1,27 +1,30 @@
-import { publer } from "./publer";
+import { beforeEach, expect, it, vi } from "vitest";
+import { publer } from ".";
 
 type EventMap = {
-  foo: string;
-  bar: number;
+  foo: [bar: string];
+  baz: [];
 };
 
 let [pub, sub] = publer<EventMap>();
 
-beforeEach(() => ([pub, sub] = publer<EventMap>()));
+beforeEach(() => {
+  [pub, sub] = publer<EventMap>();
+});
 
 it("handles one observer", () => {
-  const fn = jest.fn();
+  const fn = vi.fn();
 
   sub("foo", fn);
   pub("foo", "bar");
 
-  expect(fn).toHaveBeenCalledTimes(1);
+  expect(fn).toHaveBeenCalledOnce();
   expect(fn).toHaveBeenCalledWith("bar");
 });
 
 it("handles multiple observers", () => {
-  const f1 = jest.fn();
-  const f2 = jest.fn();
+  const f1 = vi.fn();
+  const f2 = vi.fn();
 
   sub("foo", f1);
   sub("foo", f2);
@@ -34,7 +37,7 @@ it("handles multiple observers", () => {
 });
 
 it("unsubscribes observer", () => {
-  const fn = jest.fn();
+  const fn = vi.fn();
   const unsubscribe = sub("foo", fn);
 
   pub("foo", "bar");
@@ -48,7 +51,7 @@ it("unsubscribes observer", () => {
 });
 
 it("subscribes observer only once", () => {
-  const fn = jest.fn();
+  const fn = vi.fn();
 
   sub("foo", fn);
   sub("foo", fn);
