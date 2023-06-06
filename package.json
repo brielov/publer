@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "import": "./dist/publer.mjs",
-      "require": "./dist/publer.umd.js"
+      "require": "./dist/publer.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
