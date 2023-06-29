@@ -1,6 +1,6 @@
 {
   "name": "publer",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A tiny, type-safe pubsub library",
   "main": "dist/publer.umd.js",
   "module": "dist/publer.mjs",
