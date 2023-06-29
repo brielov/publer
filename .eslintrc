@@ -14,7 +14,7 @@
     "prettier",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["dist", "**/*.js"],
+  "ignorePatterns": ["dist", "**/*.js", "vite.config.ts"],
   "rules": {
     "@typescript-eslint/no-explicit-any": 0
   }

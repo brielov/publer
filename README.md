@@ -17,7 +17,7 @@ npm install publer
 
 ## Usage
 
-```typescript
+```ts
 import { publer } from "publer";
 
 type Peer = {
@@ -44,4 +44,35 @@ pub("login", 'john@doe.com', 'johndoe123');
 
 // fails with arguments
 pub("logout");
+```
+
+## React.js
+
+You can create a simple hook to automatically unsubscribe whenever a component re-renders like so:
+
+```ts
+import { Subscribe, EventMap } from 'publer';
+import { Events } from from './my-pubsub';
+
+function useSubscribe<T extends EventMap, K extends keyof T>(sub: Subscribe<T>, eventName: K, listener: (...args: T[K]) => void) {
+  useEffect(() => sub(eventName, listener), [eventName, listener]);
+}
+```
+
+And then in your React component you can consume the hook like this:
+
+```tsx
+import { useSubscribe } from "./my-hook";
+import { sub } from "./my-pubsub";
+
+function MyComponent() {
+  useSubscribe(sub, "login", (email, password) => {
+    // email and password are correctly typed.
+  });
+
+  // From whatever other part of the application you can just call `pub`
+  pub("login", "john@doe.com", "johndoe123");
+
+  return <div>Rest of your component here</div>;
+}
 ```

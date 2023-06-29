@@ -8,6 +8,5 @@
     "noImplicitAny": true,
     "strict": true,
     "target": "esnext"
-  },
-  "include": ["src"]
+  }
 }
